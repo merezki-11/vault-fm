@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vault.fm – Premium Cross-Chain Memory Vault</title>
+  <meta name="description" content="Mint and showcase your creator moments as 100% on-chain NFTs with live Bags.fm API integration.">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1>Vault.fm</h1>
+      <p class="subtitle">The Premium Cross-Chain Memory Vault for Web3 Creators</p>
+    </header>
+
+    <!-- Live Bags.fm Creator Dashboard -->
+    <div id="creatorStats" class="stats-grid" style="display: none;">
+      <div class="stat-card">
+        <div class="stat-value" id="statPrice">-- SOL</div>
+        <div class="stat-label">Token Price</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statVolume">-- SOL</div>
+        <div class="stat-label">24h Volume</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statHolders">--</div>
+        <div class="stat-label">Active Holders</div>
+      </div>
+      <div class="stat-card button-card">
+        <button id="buyTokenBtn" class="buy-token-btn">Buy Token on Bags.fm</button>
+      </div>
+    </div>
+
+    <!-- Unified Authentication Panel -->
+    <div id="authContainer" class="auth-container">
+      <div id="loginForm" class="login-form">
+        <p class="auth-prompt">Connect your wallet or enter your email to log in instantly</p>
+        <div class="email-input-wrapper">
+          <input type="email" id="emailInput" placeholder="Enter your email (e.g. fan@vault.fm)" />
+          <button id="sendOtpBtn" class="auth-action-btn">Send OTP Code</button>
+        </div>
+        <div class="auth-divider"><span>OR</span></div>
+        <button id="connectBtn" class="metamask-btn">🦊 Connect MetaMask</button>
+      </div>
+
+      <div id="otpForm" class="otp-form" style="display: none;">
+        <p class="auth-prompt">Enter the 6-digit code sent to <strong id="sentEmailSpan"></strong></p>
+        <div class="otp-input-wrapper">
+          <input type="text" id="otpInput" maxlength="6" placeholder="123456" />
+          <button id="verifyOtpBtn" class="auth-action-btn">Verify & Sign In</button>
+        </div>
+        <button id="backToLoginBtn" class="back-btn">&larr; Back</button>
+      </div>
+    </div>
+
+    
+    <div id="walletInfo" class="wallet-card" style="display:none;">
+      <p>Connected Wallet: <span id="address"></span></p>
+      <button id="disconnectBtn" class="disconnect-btn">Disconnect Wallet</button>
+      <div class="fee-badge">✨ 1% Bags.fm creator royalty active</div>
+    </div>
+
+    <form id="mint-form" style="display:none;">
+      <h2>Mint a Creator Memory</h2>
+      
+      <div class="input-group">
+        <label for="bagsUsernameInput">Bags.fm Username</label>
+        <input type="text" id="bagsUsernameInput" placeholder="@username (e.g. @satoshi)" required />
+      </div>
+
+      <div class="input-group">
+        <label for="titleInput">Memory Title</label>
+        <input type="text" id="titleInput" placeholder="Co-founder meet, milestone shipped..." required />
+      </div>
+
+      <div class="input-group">
+        <label for="descInput">Description</label>
+        <textarea id="descInput" placeholder="Describe this creator moment..." rows="3" required></textarea>
+      </div>
+
+      <div class="input-group file-group">
+        <label for="fileInput" class="file-label">📸 Upload Memory Image</label>
+        <input type="file" id="fileInput" accept="image/*" required />
+      </div>
+
+      <!-- Gasless Minting Paymaster Sponsorship Option -->
+      <div class="sponsor-toggle-group" id="sponsorToggleGroup">
+        <label class="sponsor-checkbox-label">
+          <input type="checkbox" id="sponsorGasCheckbox" checked />
+          <span class="checkbox-text">🚀 Gasless Mint Sponsored by Vault.fm</span>
+        </label>
+        <p class="sponsor-desc" id="sponsorDesc">Zero gas fee. Zero MetaMask prompts. Powered by Vault.fm Platform Relayer.</p>
+      </div>
+
+      <button type="submit">Mint to Vault.fm</button>
+    </form>
+
+    <section class="timeline-container">
+      <h2 class="timeline-title">Your Vault.fm Timeline</h2>
+      <div class="timeline" id="timeline"></div>
+    </section>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
