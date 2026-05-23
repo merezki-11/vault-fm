@@ -15,42 +15,35 @@ Vault.fm is engineered with a modular Web3 architecture combining dynamic SDK ho
 
 ```mermaid
 flowchart TD
-    %% Styling
-    classDef main fill:#1a102f,stroke:#b450ff,stroke-width:2px,color:#fff;
-    classDef contract fill:#0d261b,stroke:#00ff78,stroke-width:2px,color:#fff;
-    classDef external fill:#281c1c,stroke:#ff3b30,stroke-width:2px,color:#fff;
+    User([Fan / Creator])
+    UI[Vault.fm Web Portal]
+    Canvas[HTML5 Canvas Compression Engine]
+    BagsAPI[Bags.fm API Client]
+    Privy[Privy Embedded Wallet - Email OTP]
+    MetaMask[MetaMask Browser Extension]
+    Sponsor[Paymaster Relayer Wallet]
+    Contract[MemoryNFT.sol - Sepolia]
+    BAGS[BAGS Token Contract - ERC-20]
 
-    %% Nodes
-    User([Fan / Creator]):::main
-    UI["Vault.fm Web Portal (Vite/Vanilla JS)"]:::main
-    Canvas["HTML5 Canvas Compression Engine"]:::main
-    BagsAPI["Bags.fm API Client"]:::external
-    Privy["Privy Embedded Wallet (Email OTP)"]:::external
-    MetaMask["MetaMask Browser Extension"]:::external
-    Sponsor["Paymaster Relayer Wallet"]:::main
-    Contract["MemoryNFT.sol (Sepolia)"]:::contract
-    BAGS["Bags Token Contract ($BAGS ERC-20)"]:::contract
-
-    %% Connections
     User -->|Logs In| UI
     UI -->|1-Click Email Auth| Privy
     UI -->|Traditional Connect| MetaMask
     UI -->|Searches Creator| BagsAPI
     BagsAPI -->|Live Price, Volume, Holders| UI
-    
-    User -->|Fills Form & Uploads Image| Canvas
-    Canvas -->|Downscales & Compresses Image| Canvas
+
+    User -->|Fills Form and Uploads Image| Canvas
+    Canvas -->|Downscales and Compresses| Canvas
     Canvas -->|Outputs Optimized Data URL| UI
-    
-    UI -->|Queries $BAGS Balance| BAGS
-    BAGS -->|Waives Fee if >= 10 $BAGS| UI
-    
-    UI -->|Requests Transaction| MintFlow{Gasless Mint Checked?}:::main
-    MintFlow -->|Yes (Sponsorship)| Sponsor
+
+    UI -->|Queries BAGS Balance| BAGS
+    BAGS -->|Waives Fee if Holder| UI
+
+    UI -->|Requests Transaction| MintFlow{Gasless Mint Checked}
+    MintFlow -->|Yes - Sponsorship| Sponsor
     MintFlow -->|No| Contract
-    
-    Sponsor -->|Signs & Pays Sepolia Gas| Contract
-    Contract -->|Mints 100% On-Chain BVM NFT| User
+
+    Sponsor -->|Signs and Pays Gas| Contract
+    Contract -->|Mints On-Chain BVM NFT| User
 ```
 
 ---
